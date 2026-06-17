@@ -81,11 +81,11 @@ export default function QuizPage({ params }: QuizPageProps) {
     } else {
       // Finished!
       setIsQuizFinished(true);
-      const finalPercentage = Math.round(((score + (selectedOptionIdx === currentQuestion.correctOptionIndex ? 1 : 0)) / questions.length) * 100);
+      const finalPercentage = Math.round((score / questions.length) * 100);
       
       // Save score to local storage context (only if it is higher than the previous score, or if no score exists)
       const existingScore = quizScores[quiz.id];
-      if (existingScore === undefined || finalPercentage > existingScore) {
+      if (existingScore === undefined || finalPercentage > existingScore || existingScore > 100) {
         setQuizScore(quiz.id, finalPercentage);
       }
     }
